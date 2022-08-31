@@ -4,9 +4,24 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.iu.start.board.notice.NoticeDAO">
-	<select id="getList" parameterType="java.util.Map"
+	
+	<sql id="search">
+		where 
+			<choose>
+				<when test="kind == 'title'">title</when>
+				<when test="kind == 'writer'">writer</when>
+				<otherwise>contents</otherwise>
+			</choose>
+		like '%' || #{search}|| '%'
+	</sql>
+	<select id="getList" parameterType="Pager"
 		resultType="NoticeDTO">
-		SELECT * FROM NOTICE
+		select * from (
+			select rownum R, N.* from (
+				select * from notice <include refid="search"></include> 
+				order by num desc
+				) N)
+		where R between #{startRow} and #{lastRow}
 	</select>
 	
 	<select id="getDetail" parameterType="BoardDTO"
@@ -26,7 +41,7 @@
 		DELETE NOTICE WHERE NUM=#{num}
 	</delete>
 	
-	<select id="findCount" resultType="java.lang.Long">
-		SELECT COUNT(NUM) FROM NOTICE
+	<select id="getCount" resultType="java.lang.Long">
+		SELECT COUNT(NUM) FROM NOTICE <include refid="search"></include>
 	</select>
 </mapper>

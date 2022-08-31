@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iu.start.MyAbstractTest;
 import com.iu.start.board.impl.BoardDTO;
+import com.iu.start.util.Pager;
 
 public class NoticeDAOTest extends MyAbstractTest {
 
@@ -21,10 +22,12 @@ public class NoticeDAOTest extends MyAbstractTest {
 	
 //	@Test
 	public void getListTest() throws Exception {
-		Map<String, Long> map = new HashMap<String, Long>();
-		map.put("startRow", 1L);
-		map.put("lastRow", 10L);
-		List<BoardDTO> list = noticeDAO.getList(map);
+		Pager pager = new Pager();
+		pager.setStartRow(1L);
+		pager.setLastRow(10L);
+		pager.setSearch("t");
+		List<BoardDTO> list = noticeDAO.getList(pager);
+		System.out.println(list.size());
 		assertNotEquals(0, list.size());
 	}
 	
@@ -73,7 +76,7 @@ public class NoticeDAOTest extends MyAbstractTest {
 		assertEquals(1, num);
 	}
 	
-	@Test
+//	@Test
 	public void findCountTest() throws Exception {
 		Long result = noticeDAO.findCount();
 		assertEquals(0, result.compareTo(131L));

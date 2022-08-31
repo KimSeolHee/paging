@@ -12,6 +12,27 @@
 	<c:import url="../template/header.jsp"></c:import>
 	<section class="container-fluid container-lg-6 mt-3">
 		<h1 class="alian-center">${board} Page</h1>
+		
+	<form action="./list.iu" method="get" class="row row-cols-lg-auto g-3 align-items-center">
+	  <div class="col-4">
+	    <label class="visually-hidden" for="search">Kind</label>
+	    <select name="kind" class="form-select" id="search">
+	      <option class="kinds" value="contents">내용</option>
+	      <option class="kinds" value="title">제목</option>
+	      <option class="kinds" value="writer">작성자</option>
+	    </select>
+	  </div>
+	  <div class="col-8" style="padding-left: 0px;">
+	    <label class="visually-hidden" for="search">검색어</label>
+	    <div class="input-group">
+	      <input type="text" name="search" class="form-control" value="${param.search}" placeholder="검색어를 입력하세요.">
+	    <button type="submit" class="btn btn-dark text-white"><i class="fas fa-search"></i></button>
+	    </div>
+	  </div>
+	</form>
+		
+		
+		
 		<table border="1" class="table table-striped">
 			<thead>
 				<tr>
@@ -41,5 +62,17 @@
 	</section>
 	<c:import url="../template/footer.jsp"></c:import>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+	<script>
+		const kinds = document.getElementsByClassName('kinds');
+	
+		let k = '${param.kind}';
+	
+		for(let i=0;i<kinds.length;i++){
+		    if(k == kinds[i].value){
+		        kinds[i].selected = true;
+		        break;
+		    }
+		}
+	</script>
 </body>
 </html>
