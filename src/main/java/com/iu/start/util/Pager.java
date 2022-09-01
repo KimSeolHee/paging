@@ -8,7 +8,7 @@ public class Pager {
 	private Long startRow;
 	private Long lastRow;
 	private Long startNum;
-	private Long LastNum;
+	private Long lastNum;
 	
 	
 	private String kind;
@@ -30,10 +30,32 @@ public class Pager {
 		this.lastRow = this.getPerPage() * this.getPage();
 	}
 	
-	//총 글수?를 받아와야함.
-//	public void getNum()throws Exception {
-//		
-//	}
+
+	//총페이지,총블럭수,현재 블럭, 블럭시작번호, 블럭 끝번호, 이전&이후페이지
+	public void getNum(Long totalCount)throws Exception {
+		Long totalPage = (long)Math.ceil((double)totalCount/this.getPerPage());
+		
+		if(this.getPage()>totalPage) {
+			this.setPage(totalPage);
+		}
+		Long totalBlock = (long) Math.ceil((double)totalPage/this.getPerBlock());
+		Long curBlock = (long) Math.ceil((double)this.getPage()/this.getPerBlock());
+		
+		this.startNum = (curBlock*5) - 4;
+		this.lastNum = curBlock*5;
+		
+		if(curBlock == totalBlock) {
+			this.lastNum = totalPage;
+		}
+		
+		if(curBlock > 1) {
+			pre = true;
+		}
+		if(curBlock <totalBlock) {
+			next = true;
+		}
+		
+	}
 	
 	
 	public Long getStartNum() {
@@ -47,12 +69,12 @@ public class Pager {
 
 
 	public Long getLastNum() {
-		return LastNum;
+		return lastNum;
 	}
 
 
 	public void setLastNum(Long lastNum) {
-		LastNum = lastNum;
+		lastNum = lastNum;
 	}
 
 
