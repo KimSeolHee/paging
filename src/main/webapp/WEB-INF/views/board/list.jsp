@@ -7,6 +7,18 @@
 <meta charset="UTF-8">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 <title>Insert title here</title>
+ <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+<script src="https://kit.fontawesome.com/6e23c67242.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<c:import url="../template/header.jsp"></c:import>
@@ -56,6 +68,29 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+    <c:if test="${pager.pre}">
+      <a class="page-link" href="./list.iu?page=${pager.startNum-1}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+    </c:if>
+      </a>
+    </li>
+    <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
+    	<li class="page-item"><a class="page-link" href="./list.iu?page=${pageScope.i}&kind=${pager.kind}&search=${pager.search}">${pageScope.i}</a></li>
+    </c:forEach>
+    
+    <li class="page-item ${pager.next?'':'disabled'}">
+      <a class="page-link" href="./list.iu?page=${pager.lastNum+1}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+		
+		
 		<c:if test="${not empty member}">
 			<a href="add.iu">글 작성</a>
 		</c:if>

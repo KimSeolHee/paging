@@ -35,6 +35,9 @@ public class NoticeController {
 		model.addAttribute("pager", pager);
 		model.addAttribute("list", list);
 		
+		System.out.println(pager.getStartNum());
+		System.out.println(pager.getLastNum());
+		
 		return "board/list";
 	}
 	
