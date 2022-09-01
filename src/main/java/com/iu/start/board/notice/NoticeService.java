@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.iu.start.board.impl.BoardDTO;
 import com.iu.start.board.impl.BoardService;
+import com.iu.start.util.Pager;
 
 @Service
 public class NoticeService implements BoardService {
@@ -15,9 +16,9 @@ public class NoticeService implements BoardService {
 	private NoticeDAO noticeDAO;
 	
 	@Override
-	public List<BoardDTO> getList() throws Exception {
+	public List<BoardDTO> getList(Pager pager) throws Exception {
 		
-		return noticeDAO.getList();
+		return noticeDAO.getList(pager);
 	}
 
 	@Override

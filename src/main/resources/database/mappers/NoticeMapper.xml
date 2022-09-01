@@ -4,9 +4,21 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.iu.start.board.notice.NoticeDAO">
+	<sql id="search">
+		where
+		<choose>
+			<when test="kind == 'title'">title</when>
+			<when test="kind == 'writer'">writer</when>
+			<otherwise>contents</otherwise>
+		</choose>
+		like '%'||#{search}||'%'
+	</sql>
 	<select id="getList"
-		resultType="NoticeDTO">
-		SELECT * FROM NOTICE
+		resultType="NoticeDTO" parameterType="Pager">
+		select * from (
+			select rownum R,N.* from (
+				select * from notice <include refid="search"></include> order by num desc)N)
+		where R between #{startRow} and #{lastRow}
 	</select>
 	
 	<select id="getDetail" parameterType="BoardDTO"
