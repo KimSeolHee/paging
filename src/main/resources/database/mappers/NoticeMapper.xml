@@ -38,7 +38,7 @@
 		DELETE NOTICE WHERE NUM=#{num}
 	</delete>
 	
-	<select id="findCount" resultType="java.lang.Long">
-		SELECT COUNT(NUM) FROM NOTICE
+	<select id="getCount" resultType="java.lang.Long" parameterType="Pager">
+		SELECT COUNT(NUM) FROM NOTICE <include refid="search"></include>
 	</select>
 </mapper>
