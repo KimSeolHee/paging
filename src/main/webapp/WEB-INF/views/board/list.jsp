@@ -12,7 +12,7 @@
 	<c:import url="../template/header.jsp"></c:import>
 	<section class="container-fluid container-lg-6 mt-3">
 		<h1 class="alian-center">${board} Page</h1>
-			<form action="./list.do" method="get" class="row row-cols-lg-auto g-3 align-items-center">
+			<form action="./list.iu" method="get" class="row row-cols-lg-auto g-3 align-items-center">
   <div class="col-4">
     <label class="visually-hidden" for="search">Kind</label>
     <select name="kind" class="form-select" id="search">
@@ -58,10 +58,10 @@
     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
     
     <c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-    <li class="page-item"><a class="page-link" href="./list.iu?page=${pager.page}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
+    <li class="page-item"><a class="page-link" href="./list.iu?page=${i}&kind=${pager.kind}&search=${pager.search}">${i}</a></li>
     </c:forEach>
     
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    <li class="page-item ${pager.next?'':'disabled'}"><a class="page-link" href="./list.iu?page=${pager.lastNum+1}&kind=${pager.kind}&search=${pager.search}">Next</a></li>
   </ul>
 </nav>
 		
