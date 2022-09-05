@@ -44,7 +44,11 @@
 				
 					<tr>
 						<td>${dto.num}</td>
-						<td><a href="detail.iu?num=${dto.num}">${dto.title}</a></td>
+						<td>
+						<c:catch>
+						<c:forEach begin="1" end="${dto.depth}"><b>-</b></c:forEach>
+						</c:catch>
+						<a href="detail.iu?num=${dto.num}">${dto.title}</a></td>
 						<td>${dto.writer}</td>
 						<td>${dto.regDate}</td>
 						<td>${dto.hit}</td>

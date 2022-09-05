@@ -40,6 +40,9 @@
 			<a href="update.iu?num=${detail.num}">수정</a>
 			<a href="delete.iu?num=${detail.num}">삭제</a>
 		</c:if>
+		<c:if test="${member ne null and board == 'QnA'}">
+			<button><a href="./reply.iu?num=${detail.num}">답글달기</a></button>
+			</c:if>
 	</section>	
 	<c:import url="../template/footer.jsp"></c:import>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>

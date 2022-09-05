@@ -5,12 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.start.board.impl.BoardDTO;
+import com.iu.start.util.Pager;
 
 @Controller
 @RequestMapping("/qna/*")
@@ -25,9 +29,9 @@ public class QnaController {
 	}
 	
 	@RequestMapping(value = "list.iu", method = RequestMethod.GET)
-	public String getList(Model model) throws Exception {
-		
-		List<BoardDTO> list = qnaService.getList();
+	public String getList(Model model,Pager pager) throws Exception {
+		List<BoardDTO> list = qnaService.getList(pager);
+		model.addAttribute("pager", pager);
 		model.addAttribute("list", list);
 		
 		return "board/list";
@@ -40,6 +44,18 @@ public class QnaController {
 		model.addAttribute("detail", boardDTO);
 		
 		return "board/detail";
+	}
+	
+	@GetMapping("reply.iu")
+	public String setReply(BoardDTO boardDTO,Model model)throws Exception {
+		model.addAttribute("boardDTO", boardDTO);
+		return "board/reply";
+	}
+	
+	@PostMapping("reply.iu")
+	public String setReply(QnaDTO qnaDTO,ModelAndView mv)throws Exception {
+		int result = qnaService.setReply(qnaDTO);
+		return "redirect:./list.iu";
 	}
 	
 	@RequestMapping(value = "add.iu", method = RequestMethod.GET)
